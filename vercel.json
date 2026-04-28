@@ -2,21 +2,25 @@
   "version": 2,
   "builds": [
     {
+      "src": "careermind-ai/backend/server.js",
+      "use": "@vercel/node"
+    },
+    {
       "src": "careermind-ai/frontend/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist",
-        "buildCommand": "npm run build"
+        "distDir": "dist"
       }
     }
   ],
   "routes": [
     {
-      "handle": "filesystem"
+      "src": "/api/(.*)",
+      "dest": "careermind-ai/backend/server.js"
     },
     {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "careermind-ai/frontend/$1"
     }
   ]
 }
